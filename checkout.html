@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pago — TecnoExpress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="site-header"></div>
+  <main class="container">
+
+    <div class="steps">
+      <div class="step done"><span class="n">✓</span> Datos de envío</div><div class="step-line"></div>
+      <div class="step on"><span class="n">2</span> Pago</div><div class="step-line"></div>
+      <div class="step"><span class="n">3</span> Confirmación</div>
+    </div>
+    <div class="grid grid-2">
+      <div>
+        <div class="card" style="margin-bottom:18px">
+          <h3 style="font-size:16px;margin-bottom:14px">Datos de envío</h3>
+          <div class="field-row">
+            <div class="field"><label>Nombre completo</label><input id="name" placeholder="Tu nombre"></div>
+            <div class="field"><label>Teléfono</label><input id="phone" placeholder="999 000 111"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>Ciudad</label>
+              <select id="city"><option>Trujillo</option><option>Cajamarca</option><option>Lima</option><option>Otra</option></select>
+            </div>
+            <div class="field" style="flex:1.6"><label>Dirección</label><input id="address" placeholder="Av. / Calle, número, urbanización"></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="font-size:16px;margin-bottom:14px">Método de pago</h3>
+          <div class="pay-methods">
+            <div class="pay-opt active" data-method="yape"><div class="tag yape" style="background:#742384;color:#fff">Yape</div><div class="muted" style="font-size:12px">Billetera</div></div>
+            <div class="pay-opt" data-method="plin"><div class="tag plin" style="background:#0AC2C2;color:#072B2B">Plin</div><div class="muted" style="font-size:12px">Billetera</div></div>
+            <div class="pay-opt" data-method="tarjeta"><div class="tag" style="border:1px solid var(--line)">Tarjeta</div><div class="muted" style="font-size:12px">Crédito/Débito</div></div>
+          </div>
+          <p class="muted" style="font-size:13px">Al confirmar, recibirás las instrucciones de pago y el seguimiento por WhatsApp y correo.</p>
+        </div>
+      </div>
+      <div class="summary">
+        <h3>Tu pedido</h3>
+        <div id="order-lines"></div>
+        <div class="total"><b>Total</b><b id="order-total">S/ 0</b></div>
+        <button class="btn btn-cta btn-block" id="pay-btn">Pagar</button>
+        <div class="muted" style="font-size:11.5px;text-align:center;margin-top:10px">🔒 Pago protegido · Datos cifrados</div>
+      </div>
+    </div>
+
+  </main>
+  <footer class="site" id="site-footer"></footer>
+
+  <!-- Librería de Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Scripts del proyecto -->
+  <script src="js/config.js"></script>
+  <script src="js/supabaseClient.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>
