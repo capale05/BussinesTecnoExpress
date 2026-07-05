@@ -156,6 +156,7 @@ body.admin-body{ display:flex; min-height:100vh; }
   background:linear-gradient(135deg,#04091A 0%,#0A1835 50%,#04091A 100%);
   position:relative; overflow:hidden;
 }
+.login-page[hidden]{ display:none; }
 .login-page::before{
   content:''; position:absolute; top:-200px; left:50%;
   width:600px; height:600px; transform:translateX(-50%);
@@ -196,9 +197,10 @@ body.admin-body{ display:flex; min-height:100vh; }
   width:40px; height:40px; border-radius:8px;
   background:var(--card2); border:1px solid var(--border);
   display:flex; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden;
+  position:relative;
 }
 .prod-thumb-sm svg{ width:20px; height:20px; color:var(--blue); opacity:.6; }
-.prod-thumb-sm img{ width:100%; height:100%; object-fit:cover; }
+.prod-thumb-sm img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 
 /* ─── Alert toast ─── */
 .alert{

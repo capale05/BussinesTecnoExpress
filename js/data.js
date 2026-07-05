@@ -79,10 +79,9 @@ const Data = {
 
   async getOrderByCode(code) {
     if (TX.enabled) {
-      const { data, error } = await TX.client.from("orders").select("*").eq("code", code).single();
-      if (!error && data) {
-        const { data: items } = await TX.client.from("order_items").select("*").eq("order_id", data.id);
-        return { order: data, items: items || [] };
+      const { data, error } = await TX.client.rpc("get_order_by_code", { p_code: code });
+      if (!error && data && data.length && data[0].order_data) {
+        return { order: data[0].order_data, items: data[0].items_data || [] };
       }
     }
     const local = JSON.parse(localStorage.getItem("tx_last_order") || "null");

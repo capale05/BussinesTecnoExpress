@@ -101,8 +101,9 @@ function productCardHTML(p){
   const badge = p.badge
     ? `<span class="p-badge ${p.badge.toLowerCase()==='nuevo'?'new':''}">${p.badge}</span>` : "";
   const old = p.old_price ? `<s>${moneda(p.old_price)}</s>` : "";
-  const thumb = p.image_url
-    ? `<img src="${p.image_url}" alt="${p.name}">`
+  const imgUrl = productImageUrl(p);
+  const thumb = imgUrl
+    ? prodIcon(p.category) + `<img src="${imgUrl}" alt="${p.name}" loading="lazy" onerror="this.remove()">`
     : prodIcon(p.category);
   return `<div class="p-card">
     <a href="producto.html?id=${p.id}" class="p-thumb">${badge}${thumb}</a>

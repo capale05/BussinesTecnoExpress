@@ -279,7 +279,7 @@ nav.cats a.active,nav.cats a:hover{ color:var(--blue); border-bottom-color:var(-
   position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;
 }
 .p-thumb svg{ width:80px; height:80px; color:var(--blue); opacity:.6; }
-.p-thumb img{ width:100%; height:100%; object-fit:cover; }
+.p-thumb img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .p-badge{
   position:absolute; top:12px; left:12px;
   background:linear-gradient(135deg,var(--orange),#EA580C);
@@ -328,10 +328,10 @@ nav.cats a.active,nav.cats a:hover{ color:var(--blue); border-bottom-color:var(-
   background:var(--card); border:1px solid var(--border);
   border-radius:var(--radius); height:380px;
   display:flex; align-items:center; justify-content:center;
-  color:var(--blue); overflow:hidden;
+  color:var(--blue); overflow:hidden; position:relative;
 }
 .pd .gallery svg{ width:160px; height:160px; opacity:.6; }
-.pd .gallery img{ width:100%; height:100%; object-fit:cover; border-radius:var(--radius); }
+.pd .gallery img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:var(--radius); }
 .pd .price-lg{ font-size:38px; font-weight:800; color:#fff; }
 .qty{
   display:inline-flex; align-items:center;
@@ -359,10 +359,10 @@ nav.cats a.active,nav.cats a:hover{ color:var(--blue); border-bottom-color:var(-
 .cart-item .thumb{
   width:88px; height:88px; border-radius:12px; flex-shrink:0;
   background:var(--card2); display:flex; align-items:center; justify-content:center;
-  border:1px solid var(--border); overflow:hidden;
+  border:1px solid var(--border); overflow:hidden; position:relative;
 }
 .cart-item .thumb svg{ width:44px; height:44px; color:var(--blue); opacity:.6; }
-.cart-item .thumb img{ width:100%; height:100%; object-fit:cover; }
+.cart-item .thumb img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .summary{
   background:var(--card); border:1px solid var(--border);
   border-radius:var(--radius); padding:24px;

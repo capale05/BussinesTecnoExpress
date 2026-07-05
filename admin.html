@@ -26,10 +26,14 @@
       Panel Admin
     </div>
     <h1>Bienvenido</h1>
-    <p>Ingresa tu contraseña para acceder al panel de administración de TecnoExpress.</p>
-    <div class="login-error" id="login-error">Contraseña incorrecta. Inténtalo de nuevo.</div>
+    <p>Ingresa con tu cuenta de administrador de TecnoExpress.</p>
+    <div class="login-error" id="login-error">Correo o contraseña incorrectos.</div>
     <div class="field">
-      <label>Contraseña de administrador</label>
+      <label>Correo</label>
+      <input type="email" id="admin-email" placeholder="admin@tecnoexpress.pe" autocomplete="username">
+    </div>
+    <div class="field">
+      <label>Contraseña</label>
       <input type="password" id="admin-pass" placeholder="••••••••••••" autocomplete="current-password">
     </div>
     <button class="btn btn-blue btn-block" id="login-btn" style="font-size:15px;padding:13px 20px;border-radius:12px;margin-top:4px;">

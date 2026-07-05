@@ -14,9 +14,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    list.innerHTML = items.map(it => `
+    list.innerHTML = items.map(it => {
+      const imgUrl = productImageUrl(it);
+      const thumb = imgUrl
+        ? prodIcon(it.category) + `<img src="${imgUrl}" alt="${it.name}" onerror="this.remove()">`
+        : prodIcon(it.category);
+      return `
       <div class="cart-item">
-        <div class="thumb">${prodIcon(it.category)}</div>
+        <div class="thumb">${thumb}</div>
         <div style="flex:1">
           <div class="p-cat">${it.category}</div>
           <div style="font-weight:600;margin:3px 0;">${it.name}</div>
@@ -28,7 +33,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           <button onclick="Cart.setQty(${it.id}, ${it.qty+1});location.reload();">+</button>
         </div>
         <div style="width:90px;text-align:right;font-weight:800;">${moneda(it.lineTotal)}</div>
-      </div>`).join("") +
+      </div>`;
+    }).join("") +
       `<div style="margin-top:14px;"><a class="btn btn-ghost" href="catalogo.html">← Seguir comprando</a></div>`;
 
     summary.innerHTML = `

@@ -3,21 +3,36 @@
 // ============================================================
 
 // ─── Auth ────────────────────────────────────────────────────
-function adminLogin() {
-  const pass = document.getElementById("admin-pass").value;
-  if (pass === ADMIN_PASSWORD) {
-    sessionStorage.setItem("tx_admin", "1");
-    showApp();
-  } else {
-    const err = document.getElementById("login-error");
-    err.classList.add("show");
-    clearTimeout(err._t);
-    err._t = setTimeout(() => err.classList.remove("show"), 3000);
-  }
+function showLoginError(msg) {
+  const err = document.getElementById("login-error");
+  err.textContent = msg;
+  err.classList.add("show");
+  clearTimeout(err._t);
+  err._t = setTimeout(() => err.classList.remove("show"), 3500);
 }
 
-function adminLogout() {
-  sessionStorage.removeItem("tx_admin");
+async function adminLogin() {
+  if (!TX.enabled) {
+    showLoginError("Supabase no está configurado en js/config.js.");
+    return;
+  }
+  const email = document.getElementById("admin-email").value.trim();
+  const pass = document.getElementById("admin-pass").value;
+  const btn = document.getElementById("login-btn");
+  btn.disabled = true; btn.textContent = "Ingresando...";
+
+  const { error } = await TX.client.auth.signInWithPassword({ email, password: pass });
+
+  btn.disabled = false; btn.textContent = "Acceder al panel →";
+  if (error) {
+    showLoginError("Correo o contraseña incorrectos.");
+    return;
+  }
+  showApp();
+}
+
+async function adminLogout() {
+  if (TX.enabled) await TX.client.auth.signOut();
   location.reload();
 }
 
@@ -427,8 +442,10 @@ function toSlug(text) {
 }
 
 function thumbHTML(p) {
-  if (p.image_url) return `<img src="${p.image_url}" alt="">`;
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" width="18" height="18"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>`;
+  const icon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" width="18" height="18"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>`;
+  const imgUrl = productImageUrl(p);
+  if (!imgUrl) return icon;
+  return icon + `<img src="${imgUrl}" alt="" onerror="this.remove()">`;
 }
 
 function emptyRow(msg) {
@@ -440,13 +457,21 @@ function statusClass(status) {
 }
 
 // ─── Boot ─────────────────────────────────────────────────────
-document.addEventListener("DOMContentLoaded", () => {
-  if (sessionStorage.getItem("tx_admin") === "1") {
-    showApp();
+document.addEventListener("DOMContentLoaded", async () => {
+  if (TX.enabled) {
+    const { data: { session } } = await TX.client.auth.getSession();
+    if (session) showApp();
+
+    TX.client.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") location.reload();
+    });
+  } else {
+    showLoginError("Supabase no está configurado en js/config.js.");
   }
 
   document.getElementById("login-btn").onclick = adminLogin;
   document.getElementById("admin-pass").onkeydown = e => { if (e.key === "Enter") adminLogin(); };
+  document.getElementById("admin-email").onkeydown = e => { if (e.key === "Enter") adminLogin(); };
 
   document.querySelectorAll("[data-view]").forEach(link => {
     link.addEventListener("click", e => { e.preventDefault(); switchView(link.dataset.view); });

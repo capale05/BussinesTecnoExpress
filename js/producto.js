@@ -12,8 +12,9 @@ document.addEventListener("DOMContentLoaded", async () => {
        <table class="specs-table">${Object.entries(p.specs).map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join("")}</table>`
     : "";
 
-  const galleryContent = p.image_url
-    ? `<img src="${p.image_url}" alt="${p.name}">`
+  const imgUrl = productImageUrl(p);
+  const galleryContent = imgUrl
+    ? prodIcon(p.category) + `<img src="${imgUrl}" alt="${p.name}" onerror="this.remove()">`
     : prodIcon(p.category);
 
   document.querySelector(".crumb").innerHTML =
