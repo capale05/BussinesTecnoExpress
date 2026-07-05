@@ -2,34 +2,71 @@
    TecnoExpress — Admin Panel Styles
    ============================================================ */
 
-body.admin-body{ display:flex; min-height:100vh; }
+/* ─── Tema oscuro propio del panel (independiente de la tienda) ───
+   Grafito con tinte verde-azulado + acento teal. Redefine las
+   variables de styles.css solo dentro del admin. */
+body.admin-body{
+  --bg:     #0C1211;
+  --bg2:    #0F1716;
+  --bg3:    #141E1D;
+  --card:   #111A19;
+  --card2:  #182322;
+  --card3:  #1E2C2B;
+
+  --navy:   #0A1211;
+  --navy2:  #122120;
+
+  --blue:   #2DD4BF;
+  --blue-d: #14B8A6;
+  --blue-l: #99F6E4;
+  --cyan:   #22D3EE;
+  --green:  #34D399;
+  --red:    #F87171;
+  --orange: #FB923C;
+  --star:   #2DD4BF;
+
+  --text:  #E6EEEC;
+  --text2: #B9C9C6;
+  --muted: #75908C;
+
+  --border:      rgba(255,255,255,.06);
+  --border2:     rgba(255,255,255,.12);
+  --border-blue: rgba(45,212,191,.30);
+
+  --shadow:      0 4px 24px rgba(0,0,0,.4);
+  --shadow-lg:   0 12px 48px rgba(0,0,0,.5);
+  --shadow-blue: 0 8px 30px rgba(45,212,191,.15);
+
+  background:var(--bg); color:var(--text);
+  display:flex; min-height:100vh;
+}
 #admin-app{ flex:1; min-width:0; }
 
 /* ─── Sidebar ─── */
 .admin-sidebar{
   width:240px; min-height:100vh;
-  background:var(--bg2); border-right:1px solid var(--border);
+  background:var(--navy); border-right:1px solid rgba(255,255,255,.06);
   display:flex; flex-direction:column;
   position:fixed; top:0; left:0; bottom:0; z-index:200;
   overflow-y:auto;
 }
 .sidebar-logo{
   padding:20px 18px 16px;
-  border-bottom:1px solid var(--border);
+  border-bottom:1px solid rgba(255,255,255,.06);
 }
 .sidebar-nav{ flex:1; padding:12px 10px; }
 .sidebar-nav a{
   display:flex; align-items:center; gap:10px;
   padding:10px 12px; border-radius:10px;
-  color:var(--muted); font-size:13.5px; font-weight:600;
+  color:#9FB6BC; font-size:13.5px; font-weight:600;
   transition:.15s; margin-bottom:2px; cursor:pointer;
 }
-.sidebar-nav a:hover{ color:var(--text2); background:var(--card2); }
-.sidebar-nav a.active{ color:var(--blue); background:rgba(74,142,245,.1); }
+.sidebar-nav a:hover{ color:#fff; background:rgba(255,255,255,.06); }
+.sidebar-nav a.active{ color:#5EEAD4; background:rgba(16,181,165,.18); }
 .sidebar-nav a svg{ width:18px; height:18px; flex-shrink:0; }
 .sidebar-footer{
   padding:14px 10px;
-  border-top:1px solid var(--border);
+  border-top:1px solid rgba(255,255,255,.06);
   display:flex; flex-direction:column; gap:8px;
 }
 
@@ -38,7 +75,7 @@ body.admin-body{ display:flex; min-height:100vh; }
   margin-left:240px; flex:1; display:flex; flex-direction:column; min-height:100vh;
 }
 .admin-topbar{
-  background:rgba(7,12,26,.97); backdrop-filter:blur(20px);
+  background:rgba(12,18,17,.95); backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
   padding:16px 28px;
   display:flex; align-items:center; justify-content:space-between;
@@ -64,7 +101,7 @@ body.admin-body{ display:flex; min-height:100vh; }
   width:46px; height:46px; border-radius:13px;
   display:flex; align-items:center; justify-content:center; margin-bottom:14px;
 }
-.stat-card .stat-value{ font-size:28px; font-weight:800; color:#fff; }
+.stat-card .stat-value{ font-size:28px; font-weight:800; color:var(--text); }
 .stat-card .stat-label{ font-size:12.5px; color:var(--muted); margin-top:4px; }
 
 /* ─── Tables ─── */
@@ -89,9 +126,9 @@ body.admin-body{ display:flex; min-height:100vh; }
   padding:14px 16px; border-bottom:1px solid var(--border); color:var(--text2); vertical-align:middle;
 }
 .admin-table tr:last-child td{ border-bottom:0; }
-.admin-table tr:hover td{ background:rgba(74,142,245,.03); }
+.admin-table tr:hover td{ background:rgba(16,181,165,.03); }
 .admin-table .td-name{ color:var(--text); font-weight:600; }
-.admin-table .td-price{ font-weight:800; color:#fff; }
+.admin-table .td-price{ font-weight:800; color:var(--text); }
 
 .td-badge{
   display:inline-block; padding:3px 10px; border-radius:20px;
@@ -99,7 +136,7 @@ body.admin-body{ display:flex; min-height:100vh; }
 }
 .td-badge.active{ background:rgba(52,211,153,.1); color:var(--green); border:1px solid rgba(52,211,153,.2); }
 .td-badge.pending{ background:rgba(251,146,60,.1); color:var(--orange); border:1px solid rgba(251,146,60,.2); }
-.td-badge.done{ background:rgba(74,142,245,.1); color:var(--blue); border:1px solid rgba(74,142,245,.2); }
+.td-badge.done{ background:rgba(16,181,165,.1); color:var(--blue); border:1px solid rgba(16,181,165,.2); }
 .td-badge.out{ background:rgba(248,113,113,.1); color:var(--red); border:1px solid rgba(248,113,113,.2); }
 
 .admin-actions{ display:flex; gap:8px; align-items:center; }
@@ -108,7 +145,7 @@ body.admin-body{ display:flex; min-height:100vh; }
   background:transparent; display:flex; align-items:center; justify-content:center;
   cursor:pointer; color:var(--muted); transition:.15s; flex-shrink:0;
 }
-.btn-icon:hover{ color:var(--text); border-color:rgba(74,142,245,.3); background:rgba(74,142,245,.08); }
+.btn-icon:hover{ color:var(--text); border-color:rgba(16,181,165,.3); background:rgba(16,181,165,.08); }
 .btn-icon.danger:hover{ color:var(--red); border-color:rgba(248,113,113,.3); background:rgba(248,113,113,.08); }
 .btn-icon svg{ width:15px; height:15px; }
 
@@ -126,7 +163,7 @@ body.admin-body{ display:flex; min-height:100vh; }
 /* ─── Modals ─── */
 .modal-overlay{
   position:fixed; inset:0;
-  background:rgba(0,0,0,.75); backdrop-filter:blur(6px);
+  background:rgba(0,0,0,.65); backdrop-filter:blur(6px);
   z-index:500; display:flex; align-items:center; justify-content:center; padding:20px;
 }
 .modal-overlay[hidden]{ display:none; }
@@ -145,7 +182,7 @@ body.admin-body{ display:flex; min-height:100vh; }
   background:transparent; color:var(--muted); cursor:pointer;
   display:flex; align-items:center; justify-content:center; transition:.15s;
 }
-.modal-close:hover{ color:var(--text); border-color:rgba(74,142,245,.3); }
+.modal-close:hover{ color:var(--text); border-color:rgba(16,181,165,.3); }
 .modal-footer{
   display:flex; gap:12px; justify-content:flex-end; margin-top:22px;
   padding-top:18px; border-top:1px solid var(--border);
@@ -154,14 +191,14 @@ body.admin-body{ display:flex; min-height:100vh; }
 /* ─── Login ─── */
 .login-page{
   min-height:100vh; display:flex; align-items:center; justify-content:center;
-  background:linear-gradient(135deg,#04091A 0%,#0A1835 50%,#04091A 100%);
+  background:linear-gradient(135deg,#0A1211 0%,#12221F 50%,#0A1211 100%);
   position:relative; overflow:hidden;
 }
 .login-page[hidden]{ display:none; }
 .login-page::before{
   content:''; position:absolute; top:-200px; left:50%;
   width:600px; height:600px; transform:translateX(-50%);
-  background:radial-gradient(circle,rgba(74,142,245,.08) 0%,transparent 70%);
+  background:radial-gradient(circle,rgba(45,212,191,.08) 0%,transparent 70%);
   pointer-events:none;
 }
 .login-card{
@@ -172,7 +209,7 @@ body.admin-body{ display:flex; min-height:100vh; }
 }
 .login-card .admin-badge{
   display:inline-flex; align-items:center; gap:6px;
-  background:rgba(74,142,245,.1); border:1px solid rgba(74,142,245,.2);
+  background:rgba(16,181,165,.1); border:1px solid rgba(16,181,165,.2);
   color:var(--blue); font-size:11px; font-weight:700;
   padding:5px 12px; border-radius:20px; margin-bottom:20px;
   text-transform:uppercase; letter-spacing:.8px;

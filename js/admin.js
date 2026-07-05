@@ -154,7 +154,7 @@ function destroyChart(id){ if (_charts[id]){ _charts[id].destroy(); delete _char
 
 function renderCharts(orders, items) {
   if (typeof Chart === "undefined") return;
-  Chart.defaults.color = "#64748B";
+  Chart.defaults.color = "#75908C";
   Chart.defaults.font.family = "'Plus Jakarta Sans',sans-serif";
   const gridColor = "rgba(255,255,255,.06)";
 
@@ -178,7 +178,7 @@ function renderCharts(orders, items) {
       labels: days.map(k => k.slice(8, 10) + "/" + k.slice(5, 7)),
       datasets: [{
         data: days.map(k => totalsByDay[k]),
-        borderColor: "#4A8EF5", backgroundColor: "rgba(74,142,245,.15)",
+        borderColor: "#2DD4BF", backgroundColor: "rgba(45,212,191,.12)",
         fill: true, tension: .35, pointRadius: 2, borderWidth: 2
       }]
     },
@@ -197,7 +197,7 @@ function renderCharts(orders, items) {
 
   // 2) Pedidos por estado
   const STATUS = ["pendiente", "en proceso", "enviado", "entregado", "cancelado"];
-  const STATUS_COLORS = ["#FB923C", "#4A8EF5", "#22D3EE", "#34D399", "#F87171"];
+  const STATUS_COLORS = ["#FB923C", "#0EA5E9", "#22D3EE", "#10B981", "#EF4444"];
   destroyChart("status");
   _charts.status = new Chart(document.getElementById("chart-status"), {
     type: "doughnut",
@@ -205,7 +205,7 @@ function renderCharts(orders, items) {
       labels: STATUS,
       datasets: [{
         data: STATUS.map(s => orders.filter(o => o.status === s).length),
-        backgroundColor: STATUS_COLORS, borderColor: "#0D1528", borderWidth: 3
+        backgroundColor: STATUS_COLORS, borderColor: "#111A19", borderWidth: 3
       }]
     },
     options: {
@@ -229,7 +229,7 @@ function renderCharts(orders, items) {
       labels: top.map(t => t[0]),
       datasets: [{
         data: top.map(t => t[1]),
-        backgroundColor: ["#4A8EF5", "#A78BFA", "#22D3EE", "#34D399", "#FB923C"],
+        backgroundColor: ["#2DD4BF", "#38BDF8", "#22D3EE", "#34D399", "#FB923C"],
         borderRadius: 6, barThickness: 20
       }]
     },
