@@ -153,6 +153,22 @@
             <div id="dash-orders"></div>
           </div>
         </div>
+
+        <!-- GRÁFICOS -->
+        <div class="charts-grid">
+          <div class="admin-table-wrap">
+            <div class="admin-table-header"><h2>Ingresos · últimos 30 días</h2></div>
+            <div class="chart-body"><canvas id="chart-revenue"></canvas></div>
+          </div>
+          <div class="admin-table-wrap">
+            <div class="admin-table-header"><h2>Pedidos por estado</h2></div>
+            <div class="chart-body"><canvas id="chart-status"></canvas></div>
+          </div>
+          <div class="admin-table-wrap chart-full">
+            <div class="admin-table-header"><h2>Top 5 productos más vendidos</h2></div>
+            <div class="chart-body"><canvas id="chart-top"></canvas></div>
+          </div>
+        </div>
       </div>
 
       <!-- PRODUCTS -->
@@ -361,6 +377,7 @@
 </button>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <script src="js/config.js"></script>
 <script src="js/supabaseClient.js"></script>
 <script src="js/data.js"></script>

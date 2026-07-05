@@ -64,14 +64,12 @@ const Data = {
     const code = "TX-" + new Date().getFullYear() + "-" + Math.floor(10000 + Math.random() * 89999);
     order.code = code;
     if (TX.enabled) {
-      const { data, error } = await TX.client.from("orders").insert(order).select().single();
-      if (error) { console.error(error); throw error; }
       const rows = items.map(it => ({
-        order_id: data.id, product_id: it.id, product_name: it.name,
+        product_id: it.id, product_name: it.name,
         unit_price: it.price, quantity: it.qty
       }));
-      const { error: e2 } = await TX.client.from("order_items").insert(rows);
-      if (e2) { console.error(e2); throw e2; }
+      const { error } = await TX.client.rpc("create_order", { p_order: order, p_items: rows });
+      if (error) { console.error(error); throw error; }
     }
     localStorage.setItem("tx_last_order", JSON.stringify({ order, items }));
     return code;
@@ -141,6 +139,14 @@ const Data = {
   async getAllOrders() {
     if (TX.enabled) {
       const { data, error } = await TX.client.from("orders").select("*").order("created_at", { ascending: false });
+      if (!error && data) return data;
+    }
+    return [];
+  },
+
+  async getAllOrderItems() {
+    if (TX.enabled) {
+      const { data, error } = await TX.client.from("order_items").select("*");
       if (!error && data) return data;
     }
     return [];

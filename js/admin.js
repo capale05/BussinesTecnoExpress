@@ -102,9 +102,10 @@ function confirmDelete(text, callback) {
 
 // ─── Dashboard ───────────────────────────────────────────────
 async function loadDashboard() {
-  const [products, orders] = await Promise.all([
+  const [products, orders, orderItems] = await Promise.all([
     Data.getAllProductsAdmin(),
-    Data.getAllOrders()
+    Data.getAllOrders(),
+    Data.getAllOrderItems()
   ]);
 
   document.getElementById("stat-products").textContent = products.length;
@@ -143,6 +144,107 @@ async function loadDashboard() {
         <div style="font-weight:800;font-size:13px;">S/ ${o.total}</div>
       </div>`).join("")
     : emptyRow("Sin pedidos aún");
+
+  renderCharts(orders, orderItems);
+}
+
+// ─── Charts ───────────────────────────────────────────────────
+let _charts = {};
+function destroyChart(id){ if (_charts[id]){ _charts[id].destroy(); delete _charts[id]; } }
+
+function renderCharts(orders, items) {
+  if (typeof Chart === "undefined") return;
+  Chart.defaults.color = "#64748B";
+  Chart.defaults.font.family = "'Plus Jakarta Sans',sans-serif";
+  const gridColor = "rgba(255,255,255,.06)";
+
+  // 1) Ingresos por día (últimos 30 días, sin pedidos cancelados)
+  const days = [], totalsByDay = {};
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const key = d.toISOString().slice(0, 10);
+    days.push(key);
+    totalsByDay[key] = 0;
+  }
+  orders.forEach(o => {
+    if (o.status === "cancelado" || !o.created_at) return;
+    const key = new Date(o.created_at).toISOString().slice(0, 10);
+    if (key in totalsByDay) totalsByDay[key] += Number(o.total) || 0;
+  });
+  destroyChart("revenue");
+  _charts.revenue = new Chart(document.getElementById("chart-revenue"), {
+    type: "line",
+    data: {
+      labels: days.map(k => k.slice(8, 10) + "/" + k.slice(5, 7)),
+      datasets: [{
+        data: days.map(k => totalsByDay[k]),
+        borderColor: "#4A8EF5", backgroundColor: "rgba(74,142,245,.15)",
+        fill: true, tension: .35, pointRadius: 2, borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: c => "S/ " + c.parsed.y.toLocaleString("es-PE") } }
+      },
+      scales: {
+        x: { grid: { color: gridColor }, ticks: { maxTicksLimit: 10 } },
+        y: { grid: { color: gridColor }, beginAtZero: true, ticks: { callback: v => "S/ " + v } }
+      }
+    }
+  });
+
+  // 2) Pedidos por estado
+  const STATUS = ["pendiente", "en proceso", "enviado", "entregado", "cancelado"];
+  const STATUS_COLORS = ["#FB923C", "#4A8EF5", "#22D3EE", "#34D399", "#F87171"];
+  destroyChart("status");
+  _charts.status = new Chart(document.getElementById("chart-status"), {
+    type: "doughnut",
+    data: {
+      labels: STATUS,
+      datasets: [{
+        data: STATUS.map(s => orders.filter(o => o.status === s).length),
+        backgroundColor: STATUS_COLORS, borderColor: "#0D1528", borderWidth: 3
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: "62%",
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 10, boxHeight: 10, padding: 12 } } }
+    }
+  });
+
+  // 3) Top 5 productos más vendidos (sin pedidos cancelados)
+  const cancelled = new Set(orders.filter(o => o.status === "cancelado").map(o => o.id));
+  const qtyByName = {};
+  items.forEach(it => {
+    if (cancelled.has(it.order_id)) return;
+    qtyByName[it.product_name] = (qtyByName[it.product_name] || 0) + (Number(it.quantity) || 0);
+  });
+  const top = Object.entries(qtyByName).sort((a, b) => b[1] - a[1]).slice(0, 5);
+  destroyChart("top");
+  _charts.top = new Chart(document.getElementById("chart-top"), {
+    type: "bar",
+    data: {
+      labels: top.map(t => t[0]),
+      datasets: [{
+        data: top.map(t => t[1]),
+        backgroundColor: ["#4A8EF5", "#A78BFA", "#22D3EE", "#34D399", "#FB923C"],
+        borderRadius: 6, barThickness: 20
+      }]
+    },
+    options: {
+      indexAxis: "y", responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: c => c.parsed.x + " unidades" } }
+      },
+      scales: {
+        x: { grid: { color: gridColor }, beginAtZero: true, ticks: { precision: 0 } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
 }
 
 // ─── Products ─────────────────────────────────────────────────

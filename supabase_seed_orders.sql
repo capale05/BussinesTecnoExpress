@@ -1,0 +1,130 @@
+-- ============================================================
+--  TecnoExpress — Datos de prueba: 40 pedidos con sus items
+--  Ejecuta este script completo en: Supabase → SQL Editor
+--
+--  Distribución de estados:
+--    entregado: 16 · enviado: 7 · en proceso: 6
+--    pendiente: 7  · cancelado: 4  (máx. 5 cancelados)
+--
+--  Los montos siguen la lógica real de la tienda (js/cart.js):
+--    envío: Lima S/15 · Trujillo/Cajamarca S/12 · Otra S/18
+--    descuento: S/30 si el subtotal es >= S/200
+-- ============================================================
+
+insert into orders
+  (code, customer_name, customer_phone, city, address, payment_method,
+   subtotal, shipping, discount, total, status, created_at)
+values
+  ('TX-2026-40001','María Fernández','912345671','Lima','Av. Arequipa 1520, Lince','yape',188,15,0,203,'entregado',now() - interval '60 days'),
+  ('TX-2026-40002','Carlos Rojas','923456782','Trujillo','Jr. Pizarro 480, Centro','plin',289,12,30,271,'entregado',now() - interval '58 days'),
+  ('TX-2026-40003','Lucía Mendoza','934567893','Cajamarca','Jr. Amalia Puga 615','tarjeta',198,12,0,210,'entregado',now() - interval '56 days'),
+  ('TX-2026-40004','Jorge Salazar','945678904','Lima','Calle Las Begonias 340, San Isidro','yape',154,15,0,169,'entregado',now() - interval '55 days'),
+  ('TX-2026-40005','Ana Castillo','956789015','Trujillo','Av. España 2210','yape',204,12,30,186,'entregado',now() - interval '53 days'),
+  ('TX-2026-40006','Pedro Vargas','967890126','Lima','Av. Brasil 890, Jesús María','plin',149,15,0,164,'entregado',now() - interval '50 days'),
+  ('TX-2026-40007','Rosa Quispe','978901237','Cajamarca','Av. Atahualpa 1105','yape',168,12,0,180,'entregado',now() - interval '48 days'),
+  ('TX-2026-40008','Diego Torres','989012348','Lima','Calle Los Pinos 155, Surco','tarjeta',338,15,30,323,'entregado',now() - interval '46 days'),
+  ('TX-2026-40009','Camila Ruiz','990123459','Trujillo','Urb. La Merced Mz D Lt 12','plin',84,12,0,96,'entregado',now() - interval '44 days'),
+  ('TX-2026-40010','Luis Paredes','911234560','Lima','Av. Universitaria 2450, Los Olivos','yape',258,15,30,243,'entregado',now() - interval '42 days'),
+  ('TX-2026-40011','Valeria Chávez','922345671','Cajamarca','Jr. Cruz de Piedra 320','yape',118,12,0,130,'entregado',now() - interval '40 days'),
+  ('TX-2026-40012','Miguel Herrera','933456782','Lima','Av. La Marina 1780, San Miguel','tarjeta',208,15,30,193,'entregado',now() - interval '38 days'),
+  ('TX-2026-40013','Sofía Aguilar','944567893','Trujillo','Calle Ayacucho 660','plin',128,12,0,140,'entregado',now() - interval '36 days'),
+  ('TX-2026-40014','Renato Díaz','955678904','Lima','Jr. Camaná 940, Cercado','yape',119,15,0,134,'entregado',now() - interval '34 days'),
+  ('TX-2026-40015','Daniela Flores','966789015','Cajamarca','Av. Vía de Evitamiento Norte 810','yape',184,12,0,196,'entregado',now() - interval '32 days'),
+  ('TX-2026-40016','Óscar Ramos','977890126','Lima','Av. Javier Prado Este 3200, San Borja','tarjeta',188,15,0,203,'entregado',now() - interval '30 days'),
+  ('TX-2026-40017','Fiorella Campos','988901237','Trujillo','Urb. El Golf Mz F Lt 8','plin',80,12,0,92,'enviado',now() - interval '12 days'),
+  ('TX-2026-40018','Hugo Medina','999012348','Lima','Calle Schell 250, Miraflores','yape',289,15,30,274,'enviado',now() - interval '11 days'),
+  ('TX-2026-40019','Alejandra Ponce','910123459','Cajamarca','Jr. Dos de Mayo 415','yape',79,12,0,91,'enviado',now() - interval '10 days'),
+  ('TX-2026-40020','Ricardo Núñez','921234560','Lima','Av. Angamos Oeste 1120, Surquillo','plin',88,15,0,103,'enviado',now() - interval '9 days'),
+  ('TX-2026-40021','Paola Guerrero','932345671','Trujillo','Av. Larco 1340','tarjeta',114,12,0,126,'enviado',now() - interval '8 days'),
+  ('TX-2026-40022','Iván Cabrera','943456782','Lima','Jr. Huancavelica 470, Cercado','yape',134,15,0,149,'enviado',now() - interval '8 days'),
+  ('TX-2026-40023','Milagros Soto','954567893','Otra','Av. Los Incas 230, Arequipa','plin',149,18,0,167,'enviado',now() - interval '7 days'),
+  ('TX-2026-40024','Bruno Delgado','965678904','Lima','Calle Berlín 890, Miraflores','yape',228,15,30,213,'en proceso',now() - interval '6 days'),
+  ('TX-2026-40025','Karla Espinoza','976789015','Trujillo','Urb. Primavera Mz B Lt 3','plin',89,12,0,101,'en proceso',now() - interval '5 days'),
+  ('TX-2026-40026','Gustavo León','987890126','Cajamarca','Av. Hoyos Rubio 705','tarjeta',164,12,0,176,'en proceso',now() - interval '5 days'),
+  ('TX-2026-40027','Andrea Palacios','998901237','Lima','Av. Salaverry 2380, Jesús María','yape',110,15,0,125,'en proceso',now() - interval '4 days'),
+  ('TX-2026-40028','Sebastián Cruz','909012348','Trujillo','Calle Bolívar 520','yape',104,12,0,116,'en proceso',now() - interval '4 days'),
+  ('TX-2026-40029','Natalia Vega','918123459','Lima','Av. Petit Thouars 4550, Miraflores','plin',118,15,0,133,'en proceso',now() - interval '3 days'),
+  ('TX-2026-40030','Emilio Navarro','929234560','Cajamarca','Jr. Del Comercio 118','yape',334,12,30,316,'pendiente',now() - interval '3 days'),
+  ('TX-2026-40031','Claudia Ríos','930345671','Lima','Calle Los Cedros 78, La Molina','tarjeta',59,15,0,74,'pendiente',now() - interval '2 days'),
+  ('TX-2026-40032','Marcos Ibáñez','941456782','Trujillo','Av. América Sur 3105','plin',184,12,0,196,'pendiente',now() - interval '2 days'),
+  ('TX-2026-40033','Gabriela Luna','952567893','Lima','Jr. Ica 388, Cercado','yape',88,15,0,103,'pendiente',now() - interval '1 day'),
+  ('TX-2026-40034','Fabián Ortega','963678904','Otra','Calle Real 940, Huancayo','yape',129,18,0,147,'pendiente',now() - interval '1 day'),
+  ('TX-2026-40035','Vanessa Peña','974789015','Lima','Av. Colonial 2860, Callao','plin',138,15,0,153,'pendiente',now() - interval '20 hours'),
+  ('TX-2026-40036','Joaquín Salas','985890126','Cajamarca','Av. San Martín de Porres 465','tarjeta',148,12,0,160,'pendiente',now() - interval '8 hours'),
+  ('TX-2026-40037','Tatiana Morales','996901237','Lima','Calle Tarata 160, Miraflores','yape',99,15,0,114,'cancelado',now() - interval '25 days'),
+  ('TX-2026-40038','Raúl Benites','907012348','Trujillo','Urb. Las Quintanas Mz J Lt 21','plin',119,12,0,131,'cancelado',now() - interval '18 days'),
+  ('TX-2026-40039','Cecilia Zapata','916123459','Lima','Av. Aviación 3390, San Borja','tarjeta',90,15,0,105,'cancelado',now() - interval '14 days'),
+  ('TX-2026-40040','Álvaro Fuentes','927234560','Cajamarca','Jr. Apurímac 852','yape',45,12,0,57,'cancelado',now() - interval '6 days');
+
+-- ─── Items de cada pedido ───────────────────────────────────
+insert into order_items (order_id, product_id, product_name, unit_price, quantity)
+select o.id, v.product_id, v.product_name, v.unit_price, v.quantity
+from (values
+  ('TX-2026-40001', 1,  'Teclado mecánico RGB inalámbrico', 129, 1),
+  ('TX-2026-40001', 2,  'Mouse inalámbrico ergonómico',      59, 1),
+  ('TX-2026-40002', 5,  'SSD externo 1TB USB-C 1050MB/s',   289, 1),
+  ('TX-2026-40003', 3,  'Audífonos con cancelación de ruido',99, 2),
+  ('TX-2026-40004', 7,  'Hub USB-C 7 en 1',                 119, 1),
+  ('TX-2026-40004', 12, 'Cable USB-C a USB-C 100W 2m',       35, 1),
+  ('TX-2026-40005', 14, 'Auriculares gaming 7.1 RGB',       149, 1),
+  ('TX-2026-40005', 13, 'Pad mouse XXL gaming',              55, 1),
+  ('TX-2026-40006', 11, 'Cargador de pared 65W GaN',         79, 1),
+  ('TX-2026-40006', 12, 'Cable USB-C a USB-C 100W 2m',       35, 2),
+  ('TX-2026-40007', 4,  'Webcam Full HD 1080p',              89, 1),
+  ('TX-2026-40007', 8,  'Soporte regulable para laptop',     79, 1),
+  ('TX-2026-40008', 5,  'SSD externo 1TB USB-C 1050MB/s',   289, 1),
+  ('TX-2026-40008', 9,  'Funda para laptop 14"',             49, 1),
+  ('TX-2026-40009', 6,  'Memoria USB 128GB 3.2',             45, 1),
+  ('TX-2026-40009', 10, 'Lámina de privacidad 15.6"',        39, 1),
+  ('TX-2026-40010', 1,  'Teclado mecánico RGB inalámbrico', 129, 2),
+  ('TX-2026-40011', 16, 'Cargador inalámbrico 15W Qi',       69, 1),
+  ('TX-2026-40011', 15, 'Adaptador USB-C a HDMI 4K',         49, 1),
+  ('TX-2026-40012', 14, 'Auriculares gaming 7.1 RGB',       149, 1),
+  ('TX-2026-40012', 2,  'Mouse inalámbrico ergonómico',      59, 1),
+  ('TX-2026-40013', 8,  'Soporte regulable para laptop',     79, 1),
+  ('TX-2026-40013', 9,  'Funda para laptop 14"',             49, 1),
+  ('TX-2026-40014', 7,  'Hub USB-C 7 en 1',                 119, 1),
+  ('TX-2026-40015', 1,  'Teclado mecánico RGB inalámbrico', 129, 1),
+  ('TX-2026-40015', 13, 'Pad mouse XXL gaming',              55, 1),
+  ('TX-2026-40016', 4,  'Webcam Full HD 1080p',              89, 1),
+  ('TX-2026-40016', 3,  'Audífonos con cancelación de ruido',99, 1),
+  ('TX-2026-40017', 6,  'Memoria USB 128GB 3.2',             45, 1),
+  ('TX-2026-40017', 12, 'Cable USB-C a USB-C 100W 2m',       35, 1),
+  ('TX-2026-40018', 5,  'SSD externo 1TB USB-C 1050MB/s',   289, 1),
+  ('TX-2026-40019', 11, 'Cargador de pared 65W GaN',         79, 1),
+  ('TX-2026-40020', 10, 'Lámina de privacidad 15.6"',        39, 1),
+  ('TX-2026-40020', 15, 'Adaptador USB-C a HDMI 4K',         49, 1),
+  ('TX-2026-40021', 2,  'Mouse inalámbrico ergonómico',      59, 1),
+  ('TX-2026-40021', 13, 'Pad mouse XXL gaming',              55, 1),
+  ('TX-2026-40022', 3,  'Audífonos con cancelación de ruido',99, 1),
+  ('TX-2026-40022', 12, 'Cable USB-C a USB-C 100W 2m',       35, 1),
+  ('TX-2026-40023', 14, 'Auriculares gaming 7.1 RGB',       149, 1),
+  ('TX-2026-40024', 1,  'Teclado mecánico RGB inalámbrico', 129, 1),
+  ('TX-2026-40024', 3,  'Audífonos con cancelación de ruido',99, 1),
+  ('TX-2026-40025', 4,  'Webcam Full HD 1080p',              89, 1),
+  ('TX-2026-40026', 7,  'Hub USB-C 7 en 1',                 119, 1),
+  ('TX-2026-40026', 6,  'Memoria USB 128GB 3.2',             45, 1),
+  ('TX-2026-40027', 13, 'Pad mouse XXL gaming',              55, 2),
+  ('TX-2026-40028', 16, 'Cargador inalámbrico 15W Qi',       69, 1),
+  ('TX-2026-40028', 12, 'Cable USB-C a USB-C 100W 2m',       35, 1),
+  ('TX-2026-40029', 8,  'Soporte regulable para laptop',     79, 1),
+  ('TX-2026-40029', 10, 'Lámina de privacidad 15.6"',        39, 1),
+  ('TX-2026-40030', 5,  'SSD externo 1TB USB-C 1050MB/s',   289, 1),
+  ('TX-2026-40030', 6,  'Memoria USB 128GB 3.2',             45, 1),
+  ('TX-2026-40031', 2,  'Mouse inalámbrico ergonómico',      59, 1),
+  ('TX-2026-40032', 14, 'Auriculares gaming 7.1 RGB',       149, 1),
+  ('TX-2026-40032', 12, 'Cable USB-C a USB-C 100W 2m',       35, 1),
+  ('TX-2026-40033', 9,  'Funda para laptop 14"',             49, 1),
+  ('TX-2026-40033', 10, 'Lámina de privacidad 15.6"',        39, 1),
+  ('TX-2026-40034', 1,  'Teclado mecánico RGB inalámbrico', 129, 1),
+  ('TX-2026-40035', 4,  'Webcam Full HD 1080p',              89, 1),
+  ('TX-2026-40035', 15, 'Adaptador USB-C a HDMI 4K',         49, 1),
+  ('TX-2026-40036', 11, 'Cargador de pared 65W GaN',         79, 1),
+  ('TX-2026-40036', 16, 'Cargador inalámbrico 15W Qi',       69, 1),
+  ('TX-2026-40037', 3,  'Audífonos con cancelación de ruido',99, 1),
+  ('TX-2026-40038', 7,  'Hub USB-C 7 en 1',                 119, 1),
+  ('TX-2026-40039', 13, 'Pad mouse XXL gaming',              55, 1),
+  ('TX-2026-40039', 12, 'Cable USB-C a USB-C 100W 2m',       35, 1),
+  ('TX-2026-40040', 6,  'Memoria USB 128GB 3.2',             45, 1)
+) as v(code, product_id, product_name, unit_price, quantity)
+join orders o on o.code = v.code;

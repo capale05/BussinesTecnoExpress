@@ -61,6 +61,20 @@
   </main>
   <footer class="site" id="site-footer"></footer>
 
+  <!-- MODAL DE PAGO CON QR (Yape / Plin) -->
+  <div class="qr-overlay" id="qr-modal" hidden>
+    <div class="qr-modal">
+      <span class="tag-brand" id="qr-brand">Yape</span>
+      <h2 style="font-size:18px;margin-bottom:4px;">Escanea el QR para pagar</h2>
+      <p class="muted" style="font-size:13px;">Abre tu app, escanea el código y confirma el monto.</p>
+      <div class="qr-box" id="qr-box"></div>
+      <div class="qr-amount" id="qr-amount">S/ 0</div>
+      <button class="btn btn-cta btn-block" id="qr-finish">Procesar pago y finalizar</button>
+      <button class="btn btn-ghost btn-block" id="qr-cancel" style="margin-top:10px;">Cancelar</button>
+      <div class="muted" style="font-size:11px;margin-top:12px;">QR de demostración · Este proyecto no procesa pagos reales</div>
+    </div>
+  </div>
+
   <!-- Librería de Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- Scripts del proyecto -->
